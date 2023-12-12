@@ -1,12 +1,13 @@
 // I WAS INSPIRED BY THIS POST WHEN CREATING THE BELOW CODE (BUT I HEAVILY ADAPTED IT):
 // https://www.reddit.com/r/processing/comments/djh7ya/procedural_brush_strokes_using_bezier_curves_code/
 
+// One stroke within a Star object
 class StarStroke {
 			
 	constructor(canvas, x, y, color, arcWidth, startAngle, maxLength, width, bristleCount) {
 		this.canvas = canvas;
-    this.x = x;
-    this.y = y;
+    	this.x = x;
+    	this.y = y;
 		this.color = color;
 		this.arcWidth = arcWidth;
 		this.startAngle = startAngle;
@@ -32,12 +33,14 @@ class StarStroke {
 			this.colors[i] = varyColorsRandomly(this.color, 50);
 		}
 		
+		// convert colors to hex
 		for(let color of this.colors) {
 			color = rgbToHex(color);
 		}
 		
 	}
 	
+	// determine when to end the stroke's arc
 	chooseEndAngle() {
 		let arcAngle = HALF_PI * 2/3;
 		return getRandomFromList([this.startAngle + arcAngle, this.startAngle - arcAngle]);
@@ -64,6 +67,7 @@ class StarStroke {
 		return [this.x, this.y, x2, y2, x3, y3, x4, y4];
 	}
 
+	// display the arcs of all bristles
 	display() {
 		noFill();
 		

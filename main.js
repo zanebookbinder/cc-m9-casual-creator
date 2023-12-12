@@ -1,3 +1,5 @@
+// The main Processing file
+
 let starMode = false;
 let stars = new Array(0);
 let swirlStrokes = new Array(0);
@@ -9,9 +11,7 @@ let realImage;
 function setup() {
     createCanvas(800, 600);
     bg = loadImage("starry-night.png");
-	// bg = loadImage('https://openprocessing-usercontent.s3.amazonaws.com/files/user417780/visual2118181/h5651d27c15c0f65a9dcb540d27762df0/starry-night.png');
 	realImage = loadImage("starry-night-full.png")
-	// realImage = loadImage('https://openprocessing-usercontent.s3.amazonaws.com/files/user417780/visual2118181/h5651d27c15c0f65a9dcb540d27762df0/starry-night-full.png');
 }
 
 function draw() {
@@ -46,6 +46,7 @@ function newSegment() {
 	);
 }
 
+// calculate the mouse's current distance from the last created segment
 function mouseDistanceFromLastSegment() {
 	if(!swirlStrokes.length) {
 		return 0
@@ -57,10 +58,12 @@ function mouseDistanceFromLastSegment() {
 	return Math.sqrt(dX * dX + dY * dY);
 }
 
+// create art based on current mode
 function mousePressed() {
 	if (starMode) {
 			stars.push(new Star(this, mouseX, mouseY));
 	} else {
+			// start a swirl with an original stroke
 			if(!drawingSwirls) {
 				let originalPixelColor = realImage.get(int(mouseX), int(mouseY)).slice(0, 3);
 				swirlStrokes.push(

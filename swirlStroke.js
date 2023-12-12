@@ -1,8 +1,8 @@
 // CODE ADAPTED FROM: 
 // https://p5js.org/examples/interaction-follow-3.html
 
+// One stroke within a Swirl object
 const brushStrokes = 20;
-
 class SwirlStroke {
 	constructor(originalPixelColor, x2, y2, x1, y1) {
 		this.x2 = x2;
@@ -21,6 +21,8 @@ class SwirlStroke {
 		for(let i = 0; i < brushStrokes; i++){
 			let colorList = UPPER_SWIRL_COLORS;
 			this.colorIntensity[i] = 90;
+
+			// change color pallete and intensity based on location in the image
 			if (mouseY > -0.2 * mouseX + 424) {
 				colorList = LOWER_SWIRL_COLORS;
 				this.colorIntensity[i] = 80;
@@ -29,8 +31,13 @@ class SwirlStroke {
 				this.colorIntensity[i] = 70;
 			}
 			
-			colorList = colorList.concat([originalPixelColor, originalPixelColor, originalPixelColor]);
-			this.colors[i] = varyColorsRandomly(getRandomFromList(colorList), 40);
+			// set up stroke properties
+			colorList = colorList.concat(
+				[originalPixelColor, originalPixelColor, originalPixelColor]
+			);
+			this.colors[i] = varyColorsRandomly(
+				getRandomFromList(colorList), 40
+			);
 			this.startPoints[i] = [
 				this.varyPointRandomly(x1), this.varyPointRandomly(y1)
 			]
@@ -43,9 +50,6 @@ class SwirlStroke {
 			let dy = this.endPoints[i][1] - this.startPoints[i][1];
 			this.angles[i] = atan2(dy, dx);
 		}
-		
-		// console.log([originalPixelColor, x2, y2, x1, y1]);
-		// console.log(this.angles)
 	}
 	
 	// move point slightly for variety
